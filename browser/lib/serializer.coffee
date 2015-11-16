@@ -20,11 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 'use strict'
 
-if not window
-  window = {}
+if global? then global.neo = global.neo || {};
+if window? then window.neo = window.neo || {};
 
-window.neo = window.neo || {}
-neo = window.neo
+neo = global?.neo || window?.neo
 
 class neo.serializer
   constructor: (opts = {}) ->

@@ -25,7 +25,13 @@ angular.module('neo4jApp')
   'Folder'
   ($rootScope, Document, Folder) ->
     general_scripts = [
-      # AK - Under Favorites TAB remove Create a node 
+      {
+        folder: 'general'
+        content: """
+// Create a node
+CREATE (n {name:"World"}) RETURN "hello", n.name
+        """
+      }
       {
         folder: 'general'
         content: """
@@ -43,7 +49,13 @@ RETURN DISTINCT head(labels(a)) AS This, type(r) as To, head(labels(b)) AS That
 LIMIT 10
         """
       }
-      # AK - Under Favorites TAB remove REST API 
+      {
+        folder: 'general'
+        content: """
+// REST API
+:GET /db/data
+        """
+      }
     ]
 
     node_scripts = [
@@ -173,8 +185,44 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b)) LIMIT 100
       }
     ]
 
-    # AK - remove system scripts links
-    system_scripts = []
+    system_scripts = [
+      {
+        folder: 'system'
+        content: """
+// Server configuration
+:GET /db/manage/server/jmx/domain/org.neo4j/instance%3Dkernel%230%2Cname%3DConfiguration
+        """
+      }
+      {
+        folder: 'system'
+        content: """
+// Kernel information
+:GET /db/manage/server/jmx/domain/org.neo4j/instance%3Dkernel%230%2Cname%3DKernel
+        """
+      }
+      {
+        folder: 'system'
+        content: """
+// ID Allocation
+:GET /db/manage/server/jmx/domain/org.neo4j/instance%3Dkernel%230%2Cname%3DPrimitive%20count
+        """
+      }
+      {
+        folder: 'system'
+        content: """
+// Store file sizes
+:GET /db/manage/server/jmx/domain/org.neo4j/instance%3Dkernel%230%2Cname%3DStore%20file%20sizes
+        """
+      }
+      {
+        folder: 'system'
+        content: """
+// Extensions
+:GET /db/data/ext
+        """
+      }
+      
+    ]
 
     folders = [
       {
@@ -192,13 +240,16 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b)) LIMIT 100
       #   name: "Relationships"
       #   expanded: no
       # }
-      # AK - Under Favorites TAB remove entire System links 
+      {
+        id: "system"
+        name: "System"
+        expanded: no
+      }
     ]
 
     # Restore default content if empty
-    # AK - remove system scripts links .concat(system_scripts)
     if Document.length is 0
-      Document.add(general_scripts).save()
+      Document.add(general_scripts.concat(system_scripts)).save()
       Folder.add(folders).save()
 
     # Find and restore orphan folders

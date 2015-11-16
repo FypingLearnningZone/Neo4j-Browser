@@ -48,6 +48,13 @@ angular.module('neo4jApp.services')
         save: ->
           localStorageService.set(storageKey, JSON.stringify(@data))
 
+        loadUDC: ->
+          Intercom.load()
+          Intercom.reload()
+          
+        unloadUDC: ->
+          Intercom.unload()
+
         set: (key, value) ->
           @data[key] = value
           @save()
@@ -86,19 +93,20 @@ angular.module('neo4jApp.services')
                   })
 
         connectUser: ->
-          @data.name = Settings.userName
-          Intercom.user(@data.uuid, @data)
+          userData = if Settings.shouldReportUdc then @data else {}
+          userData.name = Settings.userName
+          Intercom.user(@data.uuid, userData)
 
         pingLater: (event) =>
           timer = $timeout(
             () =>
-              #@ping(event)
+              @ping(event)
             ,
             (Settings.heartbeat * 1000)
           )
 
         shouldPing: (event) =>
-          # AK remove reporting to Neo4j
+          # TODO: return true only when debugging. maybe use an env var?
           # return true
           if not (Settings.shouldReportUdc?)
             @pingLater(event)
@@ -106,7 +114,7 @@ angular.module('neo4jApp.services')
           if not @hasRequiredData()
             @pingLater(event)
             return false
-          if Settings.shouldReportUdc
+          if @isBeta() || Settings.shouldReportUdc
             pingTime = new Date(@data.pingTime || 0)
             today = new Date()
             today = new Date(today.getFullYear(), today.getMonth(), today.getDay())
@@ -119,12 +127,19 @@ angular.module('neo4jApp.services')
           else
             return false
 
+        isBeta: ->
+          return /-M\d\d/.test(@data.neo4j_version)
+
         hasRequiredData: ->
           return @data.store_id and @data.neo4j_version
 
         toggleMessenger: ->
           @connectUser()
           Intercom.toggle()
+
+        showMessenger: ->
+          @connectUser()
+          Intercom.showMessenger()
 
         newMessage: (message) ->
           @connectUser()

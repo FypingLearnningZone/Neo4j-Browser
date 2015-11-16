@@ -48,9 +48,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class CsvExportImportRoundTripTest
 {
-/*
-	// This test will fail if CsvExportImportRoundTripTest.js file are not in ./target/test-classes
-
     @Test
     public void verifyThatCsvImportedWithLoadCsvThenSerialisedWithBrowserJavascriptIsIdenticalToTheOriginal()
             throws Exception
@@ -64,14 +61,14 @@ public class CsvExportImportRoundTripTest
 
         String outputCsvString = exportCsvUsingNodeJs( asJsonString( cypherResult ), exportJavascript );
 
-	try ( BufferedReader reader = new BufferedReader( new FileReader( inputCsv.toFile() ) ) )
+        try ( BufferedReader reader = new BufferedReader( new FileReader( inputCsv.toFile() ) ) )
         {
             String inputCsvString = readFully( reader );
 
-	    assertEquals( inputCsvString, outputCsvString );
+            assertEquals( inputCsvString, outputCsvString );
         }
     }
-*/
+
     private String asJsonString( Result cypherResult ) throws IOException
     {
         HashMap<String, Object> json = new HashMap<>();
@@ -125,7 +122,7 @@ public class CsvExportImportRoundTripTest
         while ( (line = reader.readLine()) != null )
         {
             builder.append( line );
-            builder.append( System.getProperty( "line.separator" ) );
+            builder.append( System.lineSeparator() );
         }
         return builder.toString();
     }
