@@ -20,11 +20,20 @@
     <neo4j-version>2.3.1</neo4j-version>
   </properties>
 
-  <scm>
+ <!--  <scm>
     <connection>scm:git:git://github.com/neo4j/neo4j-browser.git</connection>
     <developerConnection>scm:git:git@github.com:neo4j/neo4j-browser.git</developerConnection>
     <url>http://neo4j.github.io/neo4j-browser/</url>
-  </scm>
+  </scm> -->
+
+
+ <!--  <repositories>
+    <repository>
+      <id>maven_modules</id>
+      <url>file:///${project.basedir}/maven_modules</url>
+    </repository>
+  </repositories> -->
+
 
   <licenses>
     <license>
@@ -219,7 +228,7 @@
     </profile>
   </profiles>
 
-  <distributionManagement>
+  <!--  <distributionManagement>
     <repository>
       <id>releases@repo.neo4j.org</id>
       <uniqueVersion>true</uniqueVersion>
@@ -227,6 +236,6 @@
       <url>http://m2.neo4j.org/content/repositories/releases/</url>
       <layout>default</layout>
     </repository>
-  </distributionManagement>
+  </distributionManagement> -->
 
 </project>
