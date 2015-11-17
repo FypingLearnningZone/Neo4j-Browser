@@ -58,13 +58,13 @@ node --version
 sudo apt-get install npm
 
 # Install Grunt Client
-npm install -g grunt-cli
+sudo npm install -g grunt-cli
 
 # Install Bower
-npm install -g bower
+sudo npm install -g bower
 
-# Install NPM modules
-npm install
+# Install NPM modules 
+cd browser && npm install
 
 # (Optional) Check the NPM version
 npm -version
