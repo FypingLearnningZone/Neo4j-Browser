@@ -8,7 +8,7 @@ Neo4j Browser is http://github.com/neo4j/neo4j/[Neo4j's] built-in client applica
 
 The program will require JDK, Maven, Node.JS and NPM installed.
 
- * Install JKD
+ * Install http://openjdk.java.net/[JKD]
 
 ```
 # Update apt-get cache
@@ -24,7 +24,7 @@ sudo apt-get install openjdk-7-jdk
 java -version
 ```
 
- * Install Maven
+ * Install https://maven.apache.org/[Maven]
 
 ```
 # Install the package
@@ -34,7 +34,7 @@ sudo apt-get install maven
 mvn -version
 ```
 
- * Install Node.JS
+ * Install https://nodejs.org/[Node.JS]
 
 ```
 # (Optional) Remove old Node installations, if they exist
@@ -51,7 +51,7 @@ sudo ln -s /usr/bin/nodejs /usr/bin/node
 node --version
 ```
 
- * Install https://nodejs.org/[node.js]
+ * Install https://www.npmjs.com/[NPM]
 
 ```
 # Install NPM
