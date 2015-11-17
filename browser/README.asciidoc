@@ -70,24 +70,17 @@ cd browser && npm install
 npm -version
 ```
 
-== Goals ==
+== Build ==
 
-* developer focused
-* every interaction is a demonstration
-* uses only public APIs
-* for modern browsers, with reasonable fallbacks
+To build the project, execute `mvn clean package` or `mvn clean install`. The compiled jar file will be availiable in the target folder
 
-== Development ==
+== Offline Build ==
 
-Set up your environment::
+To build the project offline (for example on another machine), build the project once, then transfer the project folder and .m2 folder from your home directory into new machine.
 
-  * Install https://nodejs.org/[node.js]
-  * `cd community/browser && npm install`
-+
-This installs npm modules needed to build the browser code.
-  * `npm install -g grunt-cli`
-+
-This puts the `grunt` command on your path.
+Execute `mvn -o package` or `mvn -o install` for the offline build.
+
+== Run in development mode ==
 
 Run in development mode::
 
