@@ -52,7 +52,7 @@ fi
 if [ $OS != "Ubuntu" ] || [ $ARCH != "x86_64" ] || [ $VER != "14.04" ]; then
 	read -p "This script requires Ubuntu 14.04 (x86_64), and your system is $OS $VER ($ARCH). Should we continue? [y/N]?" -r RESP
 else
-	read -p "This script will install packages, required for Neo4j-Browser compilations. Continue [y/N]?" -r RESP
+	read -p "This script will install packages, required for compiling Neo4j-Browser. Continue [y/N]?" -r RESP
 fi
 
 if ( is_exists "node" ); then 
