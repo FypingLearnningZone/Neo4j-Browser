@@ -51,6 +51,10 @@ else
 	read -p "This script will install packages, required for compiling Neo4j-Browser. Continue [y/N]?" -r RESP
 fi
 
+if [[ ! $RESP =~ ^[Yy]$ ]]; then
+	error
+fi
+
 if ( is_exists "node" ); then 
 	NODE=$(node --version)
 	if [ -z $NODE ]; then 
@@ -70,17 +74,10 @@ if ( is_exists "node" ); then
 	fi
 fi
 
-
-if [[ ! $RESP =~ ^[Yy]$ ]]; then
-	error
-fi
-
 if ( ! is_exists "git"); then 
 	message "Installing Git"
 
 	apt-get install -y git
-
-	message "Done"
 fi
 
 GIT=$(git --version | awk '{print $3}')
@@ -94,8 +91,6 @@ if ( ! is_exists "java" ); then #
 	message "Installing JDK"
 
 	apt-get install -y openjdk-7-jdk
-
-	message "Done"
 fi
 
 JAVA=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
@@ -109,8 +104,6 @@ if ( ! is_exists "mvn" ); then #
 	message "Installing Maven"
 
 	apt-get install -y maven
-
-	message "Done"
 fi
 
 MAVEN=$(mvn -version | awk '/Apache Maven/ {print $3}')
@@ -124,8 +117,6 @@ if ( ! is_exists "node" ); then #
 	message "Installing Node.JS"
 
 	apt-get install -y nodejs nodejs-legacy
-
-	message "Done"
 fi
 
 NODE=$(node --version)
@@ -139,8 +130,6 @@ if ( ! is_exists "npm" ); then #
 	message "Installing NPM"
 
 	apt-get install -y npm
-
-	message "Done"
 fi
 
 NPM=$(npm -version)
