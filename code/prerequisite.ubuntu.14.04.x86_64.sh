@@ -6,11 +6,11 @@ function line() {
 }
 
 function message() {
-	size=$((${#1} + 2))
+	local SIZE=$((${#1} + 2))
 	echo
-	line "=" $size
+	line "=" $SIZE
 	echo " $1"
-	line "=" $size
+	line "=" $SIZE
 	echo
 }
 
@@ -20,17 +20,14 @@ function error() {
 }
 
 function is_exists() {
-	FILE=$(command -v $1)
+	local FILE=$(command -v $1)
 	[ ! -z "$FILE" ] && [ -e "$FILE" ] && return 0 || return 1
 }
 
-function version() {
-	VER=$($1 $2)
-	[ ! -z "$VER" ] && return 0 || return 1
-}
-
-##VER="$($FILE $2)"
-#		[ -z "$VER" ] && return 1 ||
+#function version() {
+#	local VERSION=$($1 $2)
+#	[ ! -z "$VERSION" ] && return 0 || return 1
+#}
 
 
 message "Neo4j-Browser With Custom UI Prerequisition Script (Ubuntu 14.04 x86_64)"
@@ -58,22 +55,25 @@ else
 	read -p "This script will install packages, required for Neo4j-Browser compilations. Continue [y/N]?" -r RESP
 fi
 
-if ( is_exists "node" ) && ( ! version "node" "--version" ); then 
-        read -p "The script has detected incorrect Node version installed on this machine. To continue, this node version have to be purget. Continue? [y/N]?" -r RESP
+if ( is_exists "node" ); then 
+	NPM=$(npm -version)
+	if [ -z $NPM ]; then 
+		read -p "The script has detected incorrect Node version installed on this machine. To continue, this node version have to be purget. Continue? [y/N]?" -r RESP
 
-        if [[ ! $RESP =~ ^[Yy]$ ]]; then
-                error
-        fi
+		if [[ ! $RESP =~ ^[Yy]$ ]]; then
+		        error
+		fi
 
-        apt-get --purge -y remove node nodejs nodejs-legacy
-#        apt-get --purge -y remove nodejs
-#	apt-get --purge -y remove nodejs-legacy
+		apt-get --purge -y remove node nodejs nodejs-legacy
+	#        apt-get --purge -y remove nodejs
+	#	apt-get --purge -y remove nodejs-legacy
 
-        if [ -e /usr/bin/node ]; then
-                rm /usr/bin/node
-        fi
+		if [ -e /usr/bin/node ]; then
+		        rm /usr/bin/node
+		fi
 
-	hash -d node
+		hash -d node
+	fi
 fi
 
 
@@ -89,10 +89,11 @@ if ( ! is_exists "git"); then
 	message "Done"
 fi
 
-if ( ! version "git" "-version" ); then
+GIT=$(git --version | awk '{print $3}')
+if [ -z "$GIT" ]; then
 	error "Error in Git installation"
 else
-	message "Git Version: $VER"
+	message "Git Version: $GIT"
 fi
 
 if ( ! is_exists "java" ); then #
@@ -103,12 +104,12 @@ if ( ! is_exists "java" ); then #
 	message "Done"
 fi
 
-if ( ! version "java" "-version" ); then
+JAVA=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
+if [ -z "$JAVA" ]; then
 	error "Error in JDK installation"
 else
-	message "JDK Version: $VER"
+	message "JDK Version: $JAVA"
 fi
-
 
 if ( ! is_exists "mvn" ); then #
 	message "Installing Maven"
@@ -118,12 +119,12 @@ if ( ! is_exists "mvn" ); then #
 	message "Done"
 fi
 
-if ( ! version "mvn" "-version" ); then
+MAVEN=$(mvn -version | awk '/Apache Maven/ {print $3}')
+if [ -z "$MAVEN" ];  then
 	error "Error in Maven installation"
 else
-	message "Maven Version: $VER"
+	message "Maven Version: $MAVEN"
 fi
-
 
 if ( ! is_exists "node" ); then #
 	message "Installing Node.JS"
@@ -133,12 +134,12 @@ if ( ! is_exists "node" ); then #
 	message "Done"
 fi
 
-if ( ! version "node" "--version" ); then
+NODE=$(node --version)
+if [ -z "$NODE" ]; then
 	error "Error in Node installation"
 else
-	message "Node Version: $VER"
+	message "Node Version: $NODE"
 fi
-
 
 if ( ! is_exists "npm" ); then #
 	message "Installing NPM"
@@ -148,10 +149,11 @@ if ( ! is_exists "npm" ); then #
 	message "Done"
 fi
 
-if ( ! version "npm" "-version" ); then
+NPM=$(npm -version)
+if [ -z "$NPM" ]; then
 	error "Error in NPM installation"
 else
-	message "NPM Version: $VER"
+	message "NPM Version: $NPM"
 fi
 
 message "Updating Node.JS modules"
