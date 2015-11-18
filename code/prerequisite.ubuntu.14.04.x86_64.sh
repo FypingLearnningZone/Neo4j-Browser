@@ -24,10 +24,6 @@ function is_exists() {
 	[ ! -z "$FILE" ] && [ -e "$FILE" ] && return 0 || return 1
 }
 
-#function version() {
-#	local VERSION=$($1 $2)
-#	[ ! -z "$VERSION" ] && return 0 || return 1
-#}
 
 
 message "Neo4j-Browser With Custom UI Prerequisition Script (Ubuntu 14.04 x86_64)"
@@ -58,15 +54,13 @@ fi
 if ( is_exists "node" ); then 
 	NPM=$(npm -version)
 	if [ -z $NPM ]; then 
-		read -p "The script has detected incorrect Node version installed on this machine. To continue, this node version have to be purget. Continue? [y/N]?" -r RESP
+		read -p "The script has detected incorrect Node.JS version installed on this machine. To continue, this Node.JS version shoud be removed. Continue? [y/N]?" -r RESP
 
 		if [[ ! $RESP =~ ^[Yy]$ ]]; then
 		        error
 		fi
 
 		apt-get --purge -y remove node nodejs nodejs-legacy
-	#        apt-get --purge -y remove nodejs
-	#	apt-get --purge -y remove nodejs-legacy
 
 		if [ -e /usr/bin/node ]; then
 		        rm /usr/bin/node
