@@ -174,10 +174,10 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b)) LIMIT 100
     ]
 
     # AK - remove system scripts links
-    system_scripts = []
-      
-    ]
+    system_scripts = [
 
+    ]
+    
     folders = [
       {
         id: "general"

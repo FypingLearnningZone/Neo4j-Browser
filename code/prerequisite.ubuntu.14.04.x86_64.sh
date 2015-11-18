@@ -24,6 +24,11 @@ function is_exists() {
 	[ ! -z "$FILE" ] && [ -e "$FILE" ] && return 0 || return 1
 }
 
+function version() {
+	VER=$($1 $2)
+	[ ! -z "$VER" ] && return 0 || return 1
+}
+
 ##VER="$($FILE $2)"
 #		[ -z "$VER" ] && return 1 ||
 
@@ -53,6 +58,25 @@ else
 	read -p "This script will install packages, required for Neo4j-Browser compilations. Continue [y/N]?" -r RESP
 fi
 
+if ( is_exists "node" ) && ( ! version "node" "--version" ); then 
+        read -p "The script has detected incorrect Node version installed on this machine. To continue, this node version have to be purget. Continue? [y/N]?" -r RESP
+
+        if [[ ! $RESP =~ ^[Yy]$ ]]; then
+                error
+        fi
+
+        apt-get --purge -y remove node nodejs nodejs-legacy
+#        apt-get --purge -y remove nodejs
+#	apt-get --purge -y remove nodejs-legacy
+
+        if [ -e /usr/bin/node ]; then
+                rm /usr/bin/node
+        fi
+
+	hash -d node
+fi
+
+
 if [[ ! $RESP =~ ^[Yy]$ ]]; then
 	error
 fi
@@ -62,9 +86,13 @@ if ( ! is_exists "git"); then
 
 	apt-get install -y git
 
-	echo "$(git -version)"
-
 	message "Done"
+fi
+
+if ( ! version "git" "-version" ); then
+	error "Error in Git installation"
+else
+	message "Git Version: $VER"
 fi
 
 if ( ! is_exists "java" ); then #
@@ -72,50 +100,43 @@ if ( ! is_exists "java" ); then #
 
 	apt-get install -y openjdk-7-jdk
 
-	echo "$(java -version)"
-
 	message "Done"
 fi
+
+if ( ! version "java" "-version" ); then
+	error "Error in JDK installation"
+else
+	message "JDK Version: $VER"
+fi
+
 
 if ( ! is_exists "mvn" ); then #
 	message "Installing Maven"
 
-	apt-get install -y mvn
-
-	echo "$(mvn -version)"
+	apt-get install -y maven
 
 	message "Done"
 fi
 
-if ( is_exists "node" ); then 
-	NODE=$(node --version)
-	
-	if [ -z "$NODE" ]; then
-                read -p "The script has detected incorrect Node version installed on this machine. To continue, this node version have to be purget. Continue? [y/N]?" -r RESP
-
-                if [[ ! $RESP =~ ^[Yy]$ ]]; then
-                        error
-                fi
-
-                apt-get --purge -y remove node
-                apt-get --purge -y remove nodejs
-
-                if [ -e /usr/bin/node ]; then
-                        rm /usr/bin/node
-                fi
-
-		hash -d node
-        fi
+if ( ! version "mvn" "-version" ); then
+	error "Error in Maven installation"
+else
+	message "Maven Version: $VER"
 fi
+
 
 if ( ! is_exists "node" ); then #
 	message "Installing Node.JS"
 
-	apt-get install -y nodejs
-
-	echo "$(node -version)"
+	apt-get install -y nodejs nodejs-legacy
 
 	message "Done"
+fi
+
+if ( ! version "node" "--version" ); then
+	error "Error in Node installation"
+else
+	message "Node Version: $VER"
 fi
 
 
@@ -124,14 +145,18 @@ if ( ! is_exists "npm" ); then #
 
 	apt-get install -y npm
 
-	echo "$(npm -version)"
-
 	message "Done"
+fi
+
+if ( ! version "npm" "-version" ); then
+	error "Error in NPM installation"
+else
+	message "NPM Version: $VER"
 fi
 
 message "Updating Node.JS modules"
 
-npm install -g npm
+npm install -g npm 
 npm install -g grunt-cli
 npm install -g bower
 
