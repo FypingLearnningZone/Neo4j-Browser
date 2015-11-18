@@ -52,8 +52,8 @@ else
 fi
 
 if ( is_exists "node" ); then 
-	NPM=$(npm -version)
-	if [ -z $NPM ]; then 
+	NODE=$(node --version)
+	if [ -z $NODE ]; then 
 		read -p "The script has detected incorrect Node.JS version installed on this machine. To continue, this Node.JS version shoud be removed. Continue? [y/N]?" -r RESP
 
 		if [[ ! $RESP =~ ^[Yy]$ ]]; then
