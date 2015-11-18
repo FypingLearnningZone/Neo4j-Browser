@@ -24,10 +24,6 @@ function is_exists() {
 	[ ! -z "$FILE" ] && [ -e "$FILE" ] && return 0 || return 1
 }
 
-#function version() {
-#	local VERSION=$($1 $2)
-#	[ ! -z "$VERSION" ] && return 0 || return 1
-#}
 
 
 message "Neo4j-Browser With Custom UI Prerequisition Script (Ubuntu 14.04 x86_64)"
@@ -52,21 +48,23 @@ fi
 if [ $OS != "Ubuntu" ] || [ $ARCH != "x86_64" ] || [ $VER != "14.04" ]; then
 	read -p "This script requires Ubuntu 14.04 (x86_64), and your system is $OS $VER ($ARCH). Should we continue? [y/N]?" -r RESP
 else
-	read -p "This script will install packages, required for Neo4j-Browser compilations. Continue [y/N]?" -r RESP
+	read -p "This script will install packages, required for compiling Neo4j-Browser. Continue [y/N]?" -r RESP
+fi
+
+if [[ ! $RESP =~ ^[Yy]$ ]]; then
+	error
 fi
 
 if ( is_exists "node" ); then 
-	NPM=$(npm -version)
-	if [ -z $NPM ]; then 
-		read -p "The script has detected incorrect Node version installed on this machine. To continue, this node version have to be purget. Continue? [y/N]?" -r RESP
+	NODE=$(node --version)
+	if [ -z $NODE ]; then 
+		read -p "The script has detected incorrect Node.JS version installed on this machine. To continue, this Node.JS version shoud be removed. Continue? [y/N]?" -r RESP
 
 		if [[ ! $RESP =~ ^[Yy]$ ]]; then
 		        error
 		fi
 
 		apt-get --purge -y remove node nodejs nodejs-legacy
-	#        apt-get --purge -y remove nodejs
-	#	apt-get --purge -y remove nodejs-legacy
 
 		if [ -e /usr/bin/node ]; then
 		        rm /usr/bin/node
@@ -76,17 +74,10 @@ if ( is_exists "node" ); then
 	fi
 fi
 
-
-if [[ ! $RESP =~ ^[Yy]$ ]]; then
-	error
-fi
-
 if ( ! is_exists "git"); then 
 	message "Installing Git"
 
 	apt-get install -y git
-
-	message "Done"
 fi
 
 GIT=$(git --version | awk '{print $3}')
@@ -100,8 +91,6 @@ if ( ! is_exists "java" ); then #
 	message "Installing JDK"
 
 	apt-get install -y openjdk-7-jdk
-
-	message "Done"
 fi
 
 JAVA=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
@@ -115,8 +104,6 @@ if ( ! is_exists "mvn" ); then #
 	message "Installing Maven"
 
 	apt-get install -y maven
-
-	message "Done"
 fi
 
 MAVEN=$(mvn -version | awk '/Apache Maven/ {print $3}')
@@ -130,8 +117,6 @@ if ( ! is_exists "node" ); then #
 	message "Installing Node.JS"
 
 	apt-get install -y nodejs nodejs-legacy
-
-	message "Done"
 fi
 
 NODE=$(node --version)
@@ -145,8 +130,6 @@ if ( ! is_exists "npm" ); then #
 	message "Installing NPM"
 
 	apt-get install -y npm
-
-	message "Done"
 fi
 
 NPM=$(npm -version)
