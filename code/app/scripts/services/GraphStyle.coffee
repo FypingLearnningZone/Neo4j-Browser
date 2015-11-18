@@ -16,7 +16,11 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+DK Added default style for all node types
 ###
+
+
 
 'use strict';
 
@@ -41,6 +45,29 @@ angular.module('neo4jApp.services')
         'text-color-external': '#000000'
         'text-color-internal': '#FFFFFF'
         'caption': '<type>'
+      'node.dataset':
+        'color': '#FF756E'
+        'border-color': '#E06760'
+        'text-color-internal': '#FFFFFF'
+        'diameter': '50px'
+        'caption': '{node_type}'
+      'node.researcher':
+        'color': '#6DCE9E'
+        'border-color': '#60B58B'
+        'text-color-internal': '#FFFFFF'
+        'diameter': '65px'
+        'caption': '{node_type}'
+      'node.grant':
+        'color': '#FFD86E'
+        'border-color': '#EDBA39'
+        'text-color-internal': '#604A0E'
+        'caption': '{node_type}'
+      'node.publication':
+        'color': '#68BDF6'
+        'border-color': '#5CA8DB'
+        'text-color-internal': '#FFFFFF'
+        'diameter': '50px'
+        'caption': '{node_type}'
 
     # Default node sizes that user can choose from
     @defaultSizes = [
