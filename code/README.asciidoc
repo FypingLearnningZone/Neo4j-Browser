@@ -88,24 +88,15 @@ cd browser && npm install
 npm -version
 ```
 
-== Build ==
+* Build
 
 To build the project, execute `mvn clean package` or `mvn clean install`. The compiled jar file will be availiable in the target folder
 
-== Offline Build ==
+* Offline Build
 
 To build the project offline (for example on another machine), build the project once, then transfer the project folder and .m2 folder from your home directory into new machine.
 
 Execute `mvn -o package` or `mvn -o install` for the offline build.
 
-== Run in development mode ==
 
-Run in development mode::
-
-  * Run Neo4j server (from a downloaded distribution of Neo4j, or from your IDE)
-  * `cd community/browser` (this directory in the source tree)
-  * `grunt server`
-+
-This listens on port 9000, serving up static documents, and forwarding other requests to Neo4j on port 7474. 
-Any local changes to the browser code will be applied immediatley by reloading the page.
 
