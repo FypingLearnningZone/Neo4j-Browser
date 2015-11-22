@@ -1,16 +1,22 @@
-/*	
-	* This file is part of RD-Switchboard.
-	*
-	* RD-Switchboard is free software: you can redistribute it and/or modify
-	* it under the terms of the GNU General Public License as published by
-	* the Free Software Foundation, either version 3 of the License, or
-	* (at your option) any later version.
-	*
-	* This program is distributed in the hope that it will be useful,
-	* but WITHOUT ANY WARRANTY; without even the implied warranty of
-	* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-	* GNU General Public License for more details.
-	*
-	* You should have received a copy of the GNU General Public License
-	* along with this program. If not, see <http://www.gnu.org/licenses/>.
-	*/
+= RD-Switchboard Neo4j Browser =
+
+Neo4j is the graph database that empowers RD-Switchboard platform, and the Neo4j Browser enables exploring this graph database. You can download and run the latest distribution, or build and compile the code on your development machine. Currently the tested operating system is Ubuntu 14.04 LTS.
+
+== Download and Run the Compiled Version ==
+
+* Step 1: Download https://github.com/rd-switchboard/Neo4j-Browser/tree/master/distribution/neo4j.2.3.1.tar.gz
+* Step 2: Uncompress the neo4j.2.3.1.tar.gz
+```
+ tar -zxvf neo4j.2.3.1.tar.gz
+```
+* Step 3: Start Neo4j Browser
+```
+./bin/neo4j start
+```
+After completing the step 3, you can access the Neo4j browser on http://localhost:7474
+
+
+== Compiling the code ==
+
+The instruction for building the Neo4j Code is available at
+https://github.com/rd-switchboard/Neo4j-Browser/blob/master/code/README.asciidoc
