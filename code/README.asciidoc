@@ -3,7 +3,7 @@
 *Explore the RD-Switchboard graph database*
 
 
-== 3 Steps Compiling and Installation  ==
+== 3 Steps Compiling and Installation (Ubuntu 14.04 LTS) ==
 This is the instruction for building the Neo4j Code on Ubuntu 14.04 LTS. 
 
 * Step 1: Clone the repository 
@@ -21,8 +21,8 @@ git clone https://github.com/rd-switchboard/Neo4j-Browser.git
 ./Neo4j-Browser/code/build.2.3.1.sh
 ```
 
-== Dependencies  ==
-If you intended to compile this code on operating systems other than Ubuntu 14.04, or you want to build the code manually, then the followings are the required dependencies for Neo4j.
+== Dependencies and Build on Other Operating Systems ==
+If you intended to compile the code on operating systems other than Ubuntu 14.04, or you want to build the code manually, then the followings are the required dependencies for Neo4j.
 
 The program will require JDK, Maven, Node.JS and NPM installed.
 
