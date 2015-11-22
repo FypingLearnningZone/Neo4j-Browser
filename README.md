@@ -15,6 +15,12 @@ Neo4j is the graph database that empowers RD-Switchboard platform, and the Neo4j
 ```
 After completing the step 3, you can access the Neo4j browser on http://localhost:7474
 
+* Close Neo4j process
+```
+./bin/neo4j stop
+```
+ 
+
 
 ##Compiling the code
 
