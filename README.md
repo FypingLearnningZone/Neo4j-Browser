@@ -19,7 +19,7 @@ wget https://github.com/rd-switchboard/Neo4j-Browser/tree/master/distribution/ne
 ```
 After completing the step 3, you can access the Neo4j browser on http://localhost:7474
 
-The default user and password is 'neo4j/neo4j'
+The default user and password is '**neo4j**/**neo4j**'
 
 * Close Neo4j process
 ```
@@ -30,5 +30,5 @@ The default user and password is 'neo4j/neo4j'
 
 ##Compiling the code
 
-The instruction for building the Neo4j Code is available at
+If you need to change and compile the code, the instruction for building the Neo4j Browser code is available at
 https://github.com/rd-switchboard/Neo4j-Browser/blob/master/code/README.asciidoc
