@@ -1,10 +1,28 @@
-= Neo4j Browser =
+= RD-Switchboard Neo4j Browser =
 
-*Explore the graph, one query at a time.*
+*Explore the RD-Switchboard graph database*
 
-Neo4j Browser is http://github.com/neo4j/neo4j/[Neo4j's] built-in client application, a mashup of a REPL, data visualization and lightweight IDE.
 
-== Installation ==
+== 3 Steps Compiling and Installation (Ubuntu 14.04 LTS) ==
+This is the instruction for building the Neo4j Code on Ubuntu 14.04 LTS. 
+
+* Step 1: Clone the repository 
+```
+git clone https://github.com/rd-switchboard/Neo4j-Browser.git
+```
+
+* Step 2: Run the prerequisite script to install all the required dependencies 
+```
+./Neo4j-Browser/code/prerequisite.ubuntu.14.04.x86_64.sh
+```
+
+* Step 3: Run the the build script
+```
+./Neo4j-Browser/code/build.2.3.1.sh
+```
+
+== Dependencies and Build on Other Operating Systems ==
+If you intended to compile the code on operating systems other than Ubuntu 14.04, or you want to build the code manually, then the followings are the required dependencies for Neo4j.
 
 The program will require JDK, Maven, Node.JS and NPM installed.
 
@@ -70,35 +88,15 @@ cd browser && npm install
 npm -version
 ```
 
-== Build ==
+* Build
 
 To build the project, execute `mvn clean package` or `mvn clean install`. The compiled jar file will be availiable in the target folder
 
-== Offline Build ==
+* Offline Build
 
 To build the project offline (for example on another machine), build the project once, then transfer the project folder and .m2 folder from your home directory into new machine.
 
 Execute `mvn -o package` or `mvn -o install` for the offline build.
 
-== Run in development mode ==
 
-Run in development mode::
 
-  * Run Neo4j server (from a downloaded distribution of Neo4j, or from your IDE)
-  * `cd community/browser` (this directory in the source tree)
-  * `grunt server`
-+
-This listens on port 9000, serving up static documents, and forwarding other requests to Neo4j on port 7474. 
-Any local changes to the browser code will be applied immediatley by reloading the page.
-
-== Feedback ==
-
-* mailto:andreas@neotechnology.com[Andreas Kollegger] - questions or comments? send an email to me
-
-== Adding a new Cypher keyword ==
-
-Look at:
-
-* Detecting Cypher: app/scripts/init/commandInterpreters.coffee
-* app/components/cypher/index.js
-* app/scripts/codemirror-cypher.coffee
