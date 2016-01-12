@@ -30,3 +30,4 @@ integrationtests/data
 .cache-main
 .cache-tests
 Thumbs.db
+.metadata

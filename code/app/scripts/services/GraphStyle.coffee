@@ -68,6 +68,12 @@ angular.module('neo4jApp.services')
         'text-color-internal': '#FFFFFF'
         'diameter': '50px'
         'caption': '{node_type}'
+      'node.institution':
+        'color': '#000000'
+        'border-color': '#9AA1AC'
+        'text-color-internal': '#FFFFFF'
+        'diameter': '65px'
+        'caption': '{node_type}'
 
     # Default node sizes that user can choose from
     @defaultSizes = [
